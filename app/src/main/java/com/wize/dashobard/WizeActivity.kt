@@ -13,7 +13,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.ViewCompat
 import com.wize.dashobard.ui.theme.AiwayzdashobardandroidTheme
 import com.wize.dashobard.webview.DashboardViewModel
@@ -29,20 +28,12 @@ class WizeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    DashboardWebView(stringResource(R.string.app_name), DashboardViewModel()) { finish() }
 
-                    DashboardPreview()
                 }
             }
             StatusBarColor()
         }
-    }
-}
-
-@Preview(showBackground = false)
-@Composable
-fun DashboardPreview() {
-    AiwayzdashobardandroidTheme {
-        DashboardWebView(stringResource(R.string.app_name), DashboardViewModel())
     }
 }
 

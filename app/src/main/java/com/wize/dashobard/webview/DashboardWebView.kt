@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +28,7 @@ import com.wize.dashobard.R
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
+fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback: (() -> Unit)) {
 
     var webView: WebView? = null
 
@@ -119,5 +120,13 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
         )
+
+        BackHandler {
+            if (webView?.canGoBack() == true) {
+                webView?.goBack()
+            } else {
+                backCallback.invoke()
+            }
+        }
     }
 }
