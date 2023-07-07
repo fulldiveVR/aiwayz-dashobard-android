@@ -2,7 +2,6 @@ package com.wize.dashobard.webview
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
@@ -10,7 +9,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -23,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.wize.dashobard.BuildConfig
 import com.wize.dashobard.R
 
@@ -33,22 +31,10 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
 
     var webView: WebView? = null
 
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 2.dp)
-    ) {
-        val (appBarRes, webViewRef) = createRefs()
-
+    Column {
         TopAppBar(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 0.dp)
-                .constrainAs(appBarRes) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                },
+                .fillMaxWidth(),
             backgroundColor = colorResource(R.color.colorAccent),
             title = {
                 Text(
@@ -131,13 +117,7 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
                 it.loadUrl(BuildConfig.DASHBOARD_URL)
             },
             modifier = Modifier
-                .padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 16.dp)
                 .fillMaxWidth()
-                .constrainAs(webViewRef) {
-                    start.linkTo(parent.start)
-                    top.linkTo(appBarRes.bottom)
-                    end.linkTo(parent.end)
-                },
         )
     }
 }
