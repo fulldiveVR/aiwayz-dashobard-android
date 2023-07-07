@@ -90,44 +90,15 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
                     webViewClient = object : WebViewClient() {
-//                        override fun shouldOverrideUrlLoading(
-//                            view: WebView,
-//                            request: WebResourceRequest
-//                        ): Boolean {
-//                            val cookies = CookieManager.getInstance()?.getCookie("https://dashboard.aiwayz.com")
-//                            val isAuthorized = cookies != null && cookies.contains("rf=")
-//                            Log.d("TestB", "shouldOverrideUrlLoading cookies$:$isAuthorized  $url ")
-//                            return true
-//                        }
-//
-//                        override fun shouldOverrideUrlLoading(
-//                            view: WebView?,
-//                            url: String?
-//                        ): Boolean {
-//                            val cookies = CookieManager.getInstance()?.getCookie("https://dashboard.aiwayz.com)")
-//                            val isAuthorized = cookies != null && cookies.contains("rf=")
-//                            Log.d("TestB", "shouldOverrideUrlLoading cookies :$isAuthorized  $url ")
-//                            return super.shouldOverrideUrlLoading(view, url)
-//                        }
 
                         override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
-                            Log.d("TestB", "onPageStarted: $url")
                             super.onPageStarted(view, url, favicon)
-                            if (url.startsWith("wize://open?")) {
-                                Log.d(
-                                    "TestB",
-                                    "onPageStarted!!!: ${url.removePrefix("wize://open?")}"
-                                )
-                                super.onPageStarted(view, url.removePrefix("wize://open?"), favicon)
+                            if (url == BuildConfig.REDIRECT_SCHEME) {
+                                loadUrl(BuildConfig.DASHBOARD_URL)
                             } else {
                                 super.onPageStarted(view, url, favicon)
                             }
                         }
-
-//                        override fun onPageFinished(view: WebView?, url: String?) {
-//                            Log.d("TestB", "onPageFinished: $url")
-//                            super.onPageFinished(view, url)
-//                        }
 
                         override fun onReceivedHttpError(
                             view: WebView?,
@@ -136,13 +107,12 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
                         ) {
 
                             val cookies = CookieManager.getInstance()
-                                ?.getCookie("https://dashboard.aiwayz.com")
-                            Log.d("TestB", "All the cookies in a string:$cookies $url")
-                            //https://auth.aiwayz.com/verify
+                                ?.getCookie(BuildConfig.DASHBOARD_URL)
+
                             val isAuthorized = cookies != null && cookies.contains("rf=")
 
-                            if (!isAuthorized && url != "https://auth.aiwayz.com/?redirectUrl=wize://open?https://dashboard.aiwayz.com") {
-                                loadUrl("https://auth.aiwayz.com?redirectUrl=wize://open?https://dashboard.aiwayz.com")
+                            if (!isAuthorized && url != BuildConfig.REDIRECT_URL_AUTH) {
+                                loadUrl(BuildConfig.REDIRECT_URL_AUTH)
                             } else {
                                 super.onReceivedHttpError(view, request, errorResponse)
                             }
