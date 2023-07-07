@@ -1,7 +1,12 @@
 package com.wize.dashobard.webview
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.util.Log
 import android.view.ViewGroup
+import android.webkit.CookieManager
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.clickable
@@ -19,11 +24,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.wize.dashobard.BuildConfig
 import com.wize.dashobard.R
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun DashboardWebView(title: String, modifier: Modifier = Modifier) {
+fun DashboardWebView(title: String, viewModel: DashboardViewModel) {
+
+    var webView: WebView? = null
 
     ConstraintLayout(
         modifier = Modifier
@@ -60,9 +68,19 @@ fun DashboardWebView(title: String, modifier: Modifier = Modifier) {
                         .clickable {}
                 )
             },
+            actions = {
+                Icon(
+                    painterResource(R.drawable.ic_refresh),
+                    contentDescription = "",
+                    tint = colorResource(R.color.colorBackground),
+                    modifier = Modifier
+                        .padding(start = 8.dp, top = 0.dp, end = 16.dp, bottom = 0.dp)
+                        .clickable {
+                            webView?.reload()
+                        }
+                )
+            }
         )
-
-        val mUrl = "https://tw.aiwize.com"
 
         AndroidView(
             factory = {
@@ -71,17 +89,76 @@ fun DashboardWebView(title: String, modifier: Modifier = Modifier) {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
-                    webViewClient = WebViewClient()
+                    webViewClient = object : WebViewClient() {
+//                        override fun shouldOverrideUrlLoading(
+//                            view: WebView,
+//                            request: WebResourceRequest
+//                        ): Boolean {
+//                            val cookies = CookieManager.getInstance()?.getCookie("https://dashboard.aiwayz.com")
+//                            val isAuthorized = cookies != null && cookies.contains("rf=")
+//                            Log.d("TestB", "shouldOverrideUrlLoading cookies$:$isAuthorized  $url ")
+//                            return true
+//                        }
+//
+//                        override fun shouldOverrideUrlLoading(
+//                            view: WebView?,
+//                            url: String?
+//                        ): Boolean {
+//                            val cookies = CookieManager.getInstance()?.getCookie("https://dashboard.aiwayz.com)")
+//                            val isAuthorized = cookies != null && cookies.contains("rf=")
+//                            Log.d("TestB", "shouldOverrideUrlLoading cookies :$isAuthorized  $url ")
+//                            return super.shouldOverrideUrlLoading(view, url)
+//                        }
+
+                        override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
+                            Log.d("TestB", "onPageStarted: $url")
+                            super.onPageStarted(view, url, favicon)
+                            if (url.startsWith("wize://open?")) {
+                                Log.d(
+                                    "TestB",
+                                    "onPageStarted!!!: ${url.removePrefix("wize://open?")}"
+                                )
+                                super.onPageStarted(view, url.removePrefix("wize://open?"), favicon)
+                            } else {
+                                super.onPageStarted(view, url, favicon)
+                            }
+                        }
+
+//                        override fun onPageFinished(view: WebView?, url: String?) {
+//                            Log.d("TestB", "onPageFinished: $url")
+//                            super.onPageFinished(view, url)
+//                        }
+
+                        override fun onReceivedHttpError(
+                            view: WebView?,
+                            request: WebResourceRequest?,
+                            errorResponse: WebResourceResponse?
+                        ) {
+
+                            val cookies = CookieManager.getInstance()
+                                ?.getCookie("https://dashboard.aiwayz.com")
+                            Log.d("TestB", "All the cookies in a string:$cookies $url")
+                            //https://auth.aiwayz.com/verify
+                            val isAuthorized = cookies != null && cookies.contains("rf=")
+
+                            if (!isAuthorized && url != "https://auth.aiwayz.com/?redirectUrl=wize://open?https://dashboard.aiwayz.com") {
+                                loadUrl("https://auth.aiwayz.com?redirectUrl=wize://open?https://dashboard.aiwayz.com")
+                            } else {
+                                super.onReceivedHttpError(view, request, errorResponse)
+                            }
+                        }
+                    }
                     with(settings) {
                         javaScriptEnabled = true
+                        loadsImagesAutomatically = true
                         loadWithOverviewMode = true
                         useWideViewPort = true
-                        builtInZoomControls = true
                     }
+                    webView = this
                 }
             },
             update = {
-                it.loadUrl(mUrl)
+                it.loadUrl(BuildConfig.DASHBOARD_URL)
             },
             modifier = Modifier
                 .padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 16.dp)

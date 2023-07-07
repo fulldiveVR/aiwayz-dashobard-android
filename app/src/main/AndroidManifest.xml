@@ -24,6 +24,23 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+<!--            <intent-filter>-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+<!--                &lt;!&ndash;                https://auth.aiwayz.com?redirectUrl=https://dashboard.aiwayz.com&ndash;&gt;-->
+<!--                <data android:scheme="http" />-->
+<!--                <data android:scheme="https" />-->
+
+<!--                <data android:host="aiwayz.com" />-->
+<!--            </intent-filter>-->
+
+            <intent-filter>
+                <data android:scheme="wize" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
         </activity>
     </application>
 

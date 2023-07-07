@@ -12,7 +12,7 @@ android {
         minSdk MIN_SDK_VERSION
         targetSdk TARGET_SDK_VERSION
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -21,7 +21,12 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwayz.com/\"'
+        }
+
         release {
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwayz.com/\"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -47,16 +52,15 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$libVersions.lifecycleKtx"
     implementation 'androidx.activity:activity-compose:1.7.2'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.constraintlayout:constraintlayout:$libVersions.constraintlayout"
 
     // Android X Compose
     implementation "androidx.compose.ui:ui:$libVersions.composeVersion"

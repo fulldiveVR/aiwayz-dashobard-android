@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.wize.dashobard.ui.theme.AiwayzdashobardandroidTheme
+import com.wize.dashobard.webview.DashboardViewModel
 import com.wize.dashobard.webview.DashboardWebView
 
 class MainActivity : ComponentActivity() {
@@ -29,10 +30,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 fun DashboardPreview() {
     AiwayzdashobardandroidTheme {
-        DashboardWebView(stringResource(R.string.app_name))
+        DashboardWebView(stringResource(R.string.app_name), DashboardViewModel())
     }
 }
