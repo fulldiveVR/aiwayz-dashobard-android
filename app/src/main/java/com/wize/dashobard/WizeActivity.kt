@@ -5,12 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.core.view.ViewCompat
@@ -24,13 +20,10 @@ class WizeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AiwayzdashobardandroidTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    DashboardWebView(stringResource(R.string.app_name), DashboardViewModel()) { finish() }
-
-                }
+                DashboardWebView(
+                    stringResource(R.string.app_name),
+                    DashboardViewModel()
+                ) { finish() }
             }
             StatusBarColor()
         }
