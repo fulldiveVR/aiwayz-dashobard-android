@@ -8,7 +8,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.stringResource
 import androidx.core.view.ViewCompat
 import com.wize.dashobard.ui.theme.AiwayzdashobardandroidTheme
 import com.wize.dashobard.webview.DashboardViewModel
@@ -21,7 +20,6 @@ class WizeActivity : ComponentActivity() {
         setContent {
             AiwayzdashobardandroidTheme {
                 DashboardWebView(
-                    stringResource(R.string.app_name),
                     DashboardViewModel()
                 ) { finish() }
             }

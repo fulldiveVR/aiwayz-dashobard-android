@@ -1,4 +1,4 @@
-package com.wize.dashobard.webview
+package com.wize.dashobard.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton

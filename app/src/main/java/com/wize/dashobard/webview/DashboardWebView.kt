@@ -15,25 +15,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.wize.dashobard.BuildConfig
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-
-// or just
-import androidx.compose.runtime.*
 import com.wize.dashobard.extensions.isOnline
+import com.wize.dashobard.ui.RefreshButton
+import com.wize.dashobard.ui.ShimmerLayout
 
 //https://github.com/google/accompanist/issues/1442
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback: (() -> Unit)) {
+fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) {
 
     var webView by remember { mutableStateOf<WebView?>(null) }
+
+    var isLoading by remember { mutableStateOf(true) }
 
     var isError by remember { mutableStateOf(false) }
 
@@ -49,7 +46,6 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback:
             AndroidView(
                 factory = {
                     WebView(it).apply {
-                        webView = this
                         layoutParams = ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT
@@ -62,6 +58,7 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback:
                                 favicon: Bitmap?
                             ) {
                                 super.onPageStarted(view, url, favicon)
+
                                 if (url == BuildConfig.REDIRECT_SCHEME) {
                                     loadUrl(BuildConfig.DASHBOARD_URL)
                                 } else {
@@ -79,7 +76,6 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback:
                                     ?.getCookie(BuildConfig.DASHBOARD_URL)
 
                                 val isAuthorized = cookies != null && cookies.contains("rf=")
-
                                 if (!isAuthorized && url != BuildConfig.REDIRECT_URL_AUTH) {
                                     loadUrl(BuildConfig.REDIRECT_URL_AUTH)
                                 } else {
@@ -100,6 +96,7 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback:
 
                             override fun onPageFinished(view: WebView?, url: String?) {
                                 super.onPageFinished(view, url)
+                                isLoading = false
                                 webView?.context?.let { context ->
                                     isError = !isOnline(context)
                                 }
@@ -111,15 +108,17 @@ fun DashboardWebView(title: String, viewModel: DashboardViewModel, backCallback:
                             loadWithOverviewMode = true
                             useWideViewPort = true
                         }
+                        webView = this
                     }
                 },
                 update = {
-                    it.loadUrl(BuildConfig.DASHBOARD_URL)
+                     it.loadUrl(BuildConfig.DASHBOARD_URL)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
             )
         }
+        ShimmerLayout(isLoading)
     }
 
     BackHandler {
