@@ -40,6 +40,12 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled true
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFileName = "v${genVersionName()}-${variant.productFlavors.name[0]}-${variant.buildType.name}.apk"
+                }
+            }
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
@@ -49,6 +55,8 @@ android {
         }
 
         debug{
+            minifyEnabled false
+            debuggable true
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
