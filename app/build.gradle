@@ -5,7 +5,6 @@ plugins {
 
 android {
     namespace 'com.wize.dashobard'
-    compileSdk COMPILE_SDK_VERSION
 
     defaultConfig {
         applicationId "com.wize.dashobard"
@@ -14,6 +13,14 @@ android {
 
         versionCode rootProject.genVersionCode()
         versionName rootProject.genVersionName()
+
+        compileSdkVersion COMPILE_SDK_VERSION
+        buildToolsVersion BUILD_TOOLS_VERSION
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
