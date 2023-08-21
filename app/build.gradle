@@ -11,8 +11,9 @@ android {
         applicationId "com.wize.dashobard"
         minSdk MIN_SDK_VERSION
         targetSdk TARGET_SDK_VERSION
-        versionCode 1
-        versionName "1.0.0"
+
+        versionCode rootProject.genVersionCode()
+        versionName rootProject.genVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -20,14 +21,22 @@ android {
         }
     }
 
-    buildTypes {
-        debug{
-            buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
+    signingConfigs {
+        release {
+            storeFile file('../keys/keys.jks')
+            storePassword System.getenv("FULLDIVE_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("FULLDIVE_ALIAS")
+            keyPassword System.getenv("FULLDIVE_ALIAS_PASSWORD")
         }
+        debug {
+            storeFile file('../keys/keys_stage.jks')
+            storePassword "FbFq7H2k8AdYHLnJsp5P"
+            keyAlias "fulldive_stage"
+            keyPassword "UcuEEErkS6T2qCXse2gQ"
+        }
+    }
 
+    buildTypes {
         release {
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
@@ -35,6 +44,13 @@ android {
             buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+            buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
         }
     }
     compileOptions {

@@ -14,19 +14,23 @@ buildscript {
     }
 }
 
-//allprojects {
-//    repositories {
-//        google()
-//        jcenter()
-//        mavenCentral()
-//    }
-//}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+def genVersionCode() {
+    return ext.versionMajor * 1000000 + ext.versionMinor * 10000 + ext.versionPatch * 10
+}
+
+def genVersionName() {
+    return "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+}
+
 ext {
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
+
     MIN_SDK_VERSION = 24
     TARGET_SDK_VERSION = 33
     COMPILE_SDK_VERSION = 33
