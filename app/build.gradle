@@ -6,10 +6,14 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('../keys/keys.jks')
-            storePassword System.getenv("FULLDIVE_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("FULLDIVE_ALIAS")
-            keyPassword System.getenv("FULLDIVE_ALIAS_PASSWORD")
+            storeFile file('../keys/keys_stage.jks')
+            storePassword "FbFq7H2k8AdYHLnJsp5P"
+            keyAlias "fulldive_stage"
+            keyPassword "UcuEEErkS6T2qCXse2gQ"
+//            storeFile file('../keys/keys.jks')
+//            storePassword System.getenv("FULLDIVE_KEYSTORE_PASSWORD")
+//            keyAlias System.getenv("FULLDIVE_ALIAS")
+//            keyPassword System.getenv("FULLDIVE_ALIAS_PASSWORD")
         }
         debug {
             storeFile file('../keys/keys_stage.jks')
@@ -61,7 +65,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            debuggable false
+            debuggable true
+
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     output.outputFileName = "wize-v${genVersionName()}-${variant.buildType.name}.apk"
@@ -76,6 +81,7 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
