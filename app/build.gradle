@@ -4,25 +4,6 @@ plugins {
 }
 
 android {
-    namespace 'com.wize.dashboard'
-
-    defaultConfig {
-        applicationId "com.wize.dashboard"
-        minSdk MIN_SDK_VERSION
-        targetSdk TARGET_SDK_VERSION
-
-        versionCode rootProject.genVersionCode()
-        versionName rootProject.genVersionName()
-
-        compileSdkVersion COMPILE_SDK_VERSION
-        buildToolsVersion BUILD_TOOLS_VERSION
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
-    }
-
     signingConfigs {
         release {
             storeFile file('../keys/keys.jks')
@@ -38,36 +19,14 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled true
-            debuggable false
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    output.outputFileName = "v${genVersionName()}-wize-${variant.buildType.name}.apk"
-                }
-            }
-            buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
 
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        debug{
-            minifyEnabled false
-            debuggable true
-            buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -82,6 +41,48 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    namespace 'com.wize.dashboard'
+
+    defaultConfig {
+        applicationId "com.wize.dashboard"
+        minSdk MIN_SDK_VERSION
+        targetSdk TARGET_SDK_VERSION
+
+        versionCode rootProject.genVersionCode()
+        versionName rootProject.genVersionName()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFileName = "v${genVersionName()}-wize-${variant.buildType.name}.apk"
+                }
+            }
+            buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
+        }
+    }
+
     lint {
         abortOnError false
         disable 'MissingTranslation'
