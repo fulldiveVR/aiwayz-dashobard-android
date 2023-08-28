@@ -64,7 +64,7 @@ android {
             debuggable false
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    output.outputFileName = "v${genVersionName()}-wize-${variant.buildType.name}.apk"
+                    output.outputFileName = "wize-v${genVersionName()}-.apk"
                 }
             }
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
