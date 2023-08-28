@@ -41,6 +41,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            debuggable false
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     output.outputFileName = "v${genVersionName()}-wize-${variant.buildType.name}.apk"
@@ -50,7 +51,7 @@ android {
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
             buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
-            minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
