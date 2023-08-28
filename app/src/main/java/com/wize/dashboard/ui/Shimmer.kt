@@ -1,4 +1,4 @@
-package com.wize.dashobard.ui
+package com.wize.dashboard.ui
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode

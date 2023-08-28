@@ -1,4 +1,4 @@
-package com.wize.dashobard.ui
+package com.wize.dashboard.ui
 
 import android.app.Activity
 import android.content.Context
@@ -6,9 +6,9 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.wize.dashobard.R
-import com.wize.dashobard.extensions.color
-import com.wize.dashobard.extensions.unsafeLazy
+import com.wize.dashboard.R
+import com.wize.dashboard.extensions.color
+import com.wize.dashboard.extensions.unsafeLazy
 
 class WizeRefreshLayout : SwipeRefreshLayout {
     constructor(context: Context) : super(context)

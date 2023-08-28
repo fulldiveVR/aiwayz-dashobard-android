@@ -1,4 +1,4 @@
-package com.wize.dashobard
+package com.wize.dashboard
 
 import android.app.Activity
 import android.os.Bundle
@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
-import com.wize.dashobard.ui.theme.AiwayzdashobardandroidTheme
-import com.wize.dashobard.webview.DashboardViewModel
-import com.wize.dashobard.webview.DashboardWebView
+import com.wize.dashboard.ui.theme.AiwayzdashobardandroidTheme
+import com.wize.dashboard.webview.DashboardViewModel
+import com.wize.dashboard.webview.DashboardWebView
 
 class WizeActivity : ComponentActivity() {
 

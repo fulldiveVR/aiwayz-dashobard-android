@@ -1,4 +1,4 @@
-package com.wize.dashobard.ui.theme
+package com.wize.dashboard.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

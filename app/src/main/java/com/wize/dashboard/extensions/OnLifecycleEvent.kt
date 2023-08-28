@@ -1,4 +1,4 @@
-package com.wize.dashobard.extensions
+package com.wize.dashboard.extensions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

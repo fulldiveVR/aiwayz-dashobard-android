@@ -1,4 +1,4 @@
-package com.wize.dashobard.extensions
+package com.wize.dashboard.extensions
 
 import android.content.Context
 import androidx.annotation.ColorRes

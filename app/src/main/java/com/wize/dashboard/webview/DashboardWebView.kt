@@ -1,4 +1,4 @@
-package com.wize.dashobard.webview
+package com.wize.dashboard.webview
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -13,10 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import com.wize.dashobard.BuildConfig
-import com.wize.dashobard.ui.ShimmerLayout
-import com.wize.dashobard.ui.WizeRefreshLayout
-import com.wize.dashobard.ui.SwipeState
+import com.wize.dashboard.BuildConfig
+import com.wize.dashboard.ui.ShimmerLayout
+import com.wize.dashboard.ui.WizeRefreshLayout
+import com.wize.dashboard.ui.SwipeState
 
 //https://github.com/google/accompanist/issues/1442
 @SuppressLint("SetJavaScriptEnabled")

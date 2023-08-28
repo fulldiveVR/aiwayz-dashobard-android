@@ -1,4 +1,4 @@
-package com.wize.dashobard.ui
+package com.wize.dashboard.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.wize.dashobard.R
+import com.wize.dashboard.R
 
 @Composable
 fun RefreshButton(isVisible: Boolean, refreshCallback: (() -> Unit)) {
