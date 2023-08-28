@@ -45,7 +45,7 @@ android {
     namespace 'com.wize.dashboard'
 
     defaultConfig {
-        applicationId "com.wize.dashboard.test"
+        applicationId "com.wize.dashboard"
         minSdk MIN_SDK_VERSION
         targetSdk TARGET_SDK_VERSION
 
