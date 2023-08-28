@@ -60,14 +60,17 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            debuggable true
+            minifyEnabled true
+            debuggable false
 
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     output.outputFileName = "Wize-v${genVersionName()}-${variant.buildType.name}.apk"
                 }
             }
+
+            signingConfig signingConfigs.release
+
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
@@ -77,6 +80,8 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+
+            signingConfig signingConfigs.debug
 
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
             buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
