@@ -42,10 +42,12 @@ class WizeRefreshLayout : SwipeRefreshLayout {
                     0,
                     refreshFeedOffsetEnd
                 )
-
+                isEnabled = true
                 SwipeState.SWIPE
             } else {
+
                 setProgressViewEndTarget(false, -screenHeight)
+                isEnabled = false
                 SwipeState.NONE
             }
         }
@@ -59,7 +61,7 @@ class WizeRefreshLayout : SwipeRefreshLayout {
     }
 
     companion object {
-        private const val FOR_FOU_ADDITIONAL_SWIPEABLE_SCREEN_PART = 0.3f
+        private const val FOR_FOU_ADDITIONAL_SWIPEABLE_SCREEN_PART = 0.1f
     }
 }
 
