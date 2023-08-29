@@ -87,6 +87,7 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                     loadsImagesAutomatically = true
                     loadWithOverviewMode = true
                     useWideViewPort = true
+                    domStorageEnabled = true
                 }
                 webViewLayout = webView
             }
