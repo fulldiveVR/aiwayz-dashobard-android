@@ -46,8 +46,8 @@ android {
 
     defaultConfig {
         applicationId "ai.bewize.gpt.marketing.content.automation"
-        minSdk MIN_SDK_VERSION
-        targetSdk TARGET_SDK_VERSION
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
 
         versionCode rootProject.genVersionCode()
         versionName rootProject.genVersionName()
