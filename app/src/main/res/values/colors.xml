@@ -5,7 +5,4 @@
     <color name="colorAccent">#705BE7</color>
 
     <color name="colorBackground">#FFFFFF</color>
-    <color name="textColorPrimary">#0D1826</color>
-    <color name="textColorSecondary">#343a40</color>
-    <color name="textColorAccent">#FFFFFF</color>
 </resources>

@@ -24,7 +24,7 @@ fun Shimmer(modifier: Modifier) {
         Color(0xFFEAEAEA)
     )
 
-    val transition = rememberInfiniteTransition()
+    val transition = rememberInfiniteTransition(label = "")
 
     val shimmerWidthPercentage = 0.8f
 
@@ -41,7 +41,8 @@ fun Shimmer(modifier: Modifier) {
                     easing = FastOutSlowInEasing
                 ),
                 repeatMode = RepeatMode.Restart
-            )
+            ),
+            label = ""
         )
 
         val brush = Brush.linearGradient(

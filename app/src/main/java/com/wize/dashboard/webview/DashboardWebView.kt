@@ -17,6 +17,7 @@ import com.wize.dashboard.BuildConfig
 import com.wize.dashboard.ui.ShimmerLayout
 import com.wize.dashboard.ui.WizeRefreshLayout
 import com.wize.dashboard.ui.SwipeState
+import com.wize.dashboard.viewmodel.DashboardViewModel
 
 //https://github.com/google/accompanist/issues/1442
 @SuppressLint("SetJavaScriptEnabled")
