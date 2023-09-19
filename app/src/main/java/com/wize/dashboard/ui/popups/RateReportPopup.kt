@@ -23,7 +23,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.wize.dashboard.R
 import com.wize.dashboard.ui.theme.WizeColor
 import com.wize.dashboard.ui.theme.WizeTypography
 
@@ -59,7 +61,7 @@ fun RateReportPopup(modifier: Modifier, onReportClicked: (report: String) -> Uni
                 Column(modifier = modifier.padding(16.dp)) {
                     Text(
                         modifier = modifier.padding(top = 16.dp, bottom = 16.dp),
-                        text = "Do you like Fulldive? We would love to hear your feedback and make the app better for you.",
+                        text = stringResource(R.string.rate_popup_title),
                         style = WizeTypography.titleLarge
                     )
 
@@ -80,7 +82,10 @@ fun RateReportPopup(modifier: Modifier, onReportClicked: (report: String) -> Uni
                             onClick = { openDialog.value = false },
                             colors = cancelButtonColor
                         ) {
-                            Text("NOT NOW", style = WizeTypography.titleMedium)
+                            Text(
+                                stringResource(R.string.button_not_now),
+                                style = WizeTypography.titleMedium
+                            )
                         }
                         TextButton(
                             modifier = modifier.padding(top = 20.dp),
@@ -90,7 +95,10 @@ fun RateReportPopup(modifier: Modifier, onReportClicked: (report: String) -> Uni
                             },
                             colors = okButtonColor
                         ) {
-                            Text("REPORT", style = WizeTypography.titleMedium)
+                            Text(
+                                stringResource(R.string.button_report),
+                                style = WizeTypography.titleMedium
+                            )
                         }
                     }
                 }

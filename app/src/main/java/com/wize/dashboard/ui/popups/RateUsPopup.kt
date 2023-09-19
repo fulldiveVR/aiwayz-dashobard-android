@@ -19,9 +19,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.wize.dashboard.ui.theme.WizeColor
 import com.wize.dashboard.ui.theme.WizeTypography
+import com.wize.dashboard.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,12 +60,12 @@ fun RateUsPopup(
             ) {
                 Column(modifier = modifier.padding(16.dp)) {
                     Text(
-                        text = "RATE US",
+                        text = stringResource(R.string.rate_popup_title),
                         modifier.padding(top = 20.dp, bottom = 20.dp),
                         style = WizeTypography.titleLarge
                     )
                     Text(
-                        text = "Do you like Fulldive? We would love to hear your feedback and make the app better for you.",
+                        text = stringResource(R.string.disclaimer_report),
                         modifier = modifier.padding(bottom = 20.dp),
                         style = WizeTypography.bodyMedium
                     )
@@ -80,14 +82,14 @@ fun RateUsPopup(
                             onClick = { openDialog.value = false },
                             colors = cancelButtonColor
                         ) {
-                            Text("NOT NOW", style = WizeTypography.titleMedium)
+                            Text(stringResource(R.string.button_not_now), style = WizeTypography.titleMedium)
                         }
                         TextButton(
                             modifier = modifier.padding(top = 20.dp),
                             onClick = { onRateClicked.invoke(currentRating) },
                             colors = okButtonColor
                         ) {
-                            Text("RATE", style = WizeTypography.titleMedium)
+                            Text(stringResource(R.string.button_rate), style = WizeTypography.titleMedium)
                         }
                     }
                 }
