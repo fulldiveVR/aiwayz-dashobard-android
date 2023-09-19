@@ -70,6 +70,10 @@
 -dontnote com.squareup.okhttp.**
 -dontnote org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
+
 -keepparameternames
 -renamesourcefileattribute SourceFile
 #
