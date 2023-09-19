@@ -73,6 +73,7 @@
 -dontwarn org.conscrypt.**
 -dontwarn org.bouncycastle.**
 -dontwarn org.openjsse.**
+-dontwarn org.bouncycastle.jsse.BCSSLParameters
 
 -keepparameternames
 -renamesourcefileattribute SourceFile
