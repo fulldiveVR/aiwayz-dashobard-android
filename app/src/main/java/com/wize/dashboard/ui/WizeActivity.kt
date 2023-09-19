@@ -14,18 +14,25 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
 import com.wize.dashboard.R
+import com.wize.dashboard.model.PopupsViewModel
 import com.wize.dashboard.model.SettingsManager
-import com.wize.dashboard.ui.popups.RateUsPopup
 import com.wize.dashboard.viewmodel.OnboardingViewModel
 import com.wize.dashboard.ui.theme.WizeTheme
 
 open class WizeActivity : ComponentActivity() {
 
-    private val viewModel by lazy {
+    private val onboardingViewModel by lazy {
         ViewModelProvider(
             this,
             OnboardingViewModel.Factory(SettingsManager(application))
         )[OnboardingViewModel::class.java]
+    }
+
+    private val popupsViewModel by lazy {
+        ViewModelProvider(
+            this,
+            PopupsViewModel.Factory(SettingsManager(application))
+        )[PopupsViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +42,7 @@ open class WizeActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    ContainerView(viewModel) { finish() }
+                    ContainerView(onboardingViewModel, popupsViewModel) { finish() }
                 }
                 StatusBarColor()
             }

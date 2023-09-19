@@ -7,7 +7,7 @@ object WizeColor {
     val PrimaryDark = Color(0xFF4732ba)
 
     val Secondary = Color(0xFF4732ba)
-    val Tertiary = Color(0xFF343a40)
+    val Tertiary = Color(0xFFBABDC1)
 
     val Accent = Color(0xFF705BE7)
 
