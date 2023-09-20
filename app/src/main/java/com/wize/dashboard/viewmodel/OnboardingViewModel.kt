@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 class OnboardingViewModel(private val settingsManager: SettingsManager) : ViewModel() {
 
     val onboardingShownFlow: StateFlow<Boolean> = settingsManager.onboardingShown
-        .stateIn(viewModelScope, SharingStarted.Eagerly, true)
+        .stateIn(viewModelScope, SharingStarted.Lazily, true)
 
     suspend fun setOnboardingShown() {
         settingsManager.setOnboardingShown()

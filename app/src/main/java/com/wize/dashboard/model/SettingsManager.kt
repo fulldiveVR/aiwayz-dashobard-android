@@ -7,33 +7,31 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.wize.dashboard.extensions.unsafeLazy
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class SettingsManager(context: Context) {
 
     private val dataStore = context.dataStore
-    private val startCounterPref by unsafeLazy { intPreferencesKey("start_counter") }
-    private val onboardingShownPref by unsafeLazy { booleanPreferencesKey("onboarding_shown") }
-    private val rateUsDonePref by unsafeLazy { booleanPreferencesKey("rate_us_done") }
+    private val startCounterPref = intPreferencesKey("start_counter")
+    private val onboardingShownPref = booleanPreferencesKey("onboarding_shown")
+    private val rateUsDonePref = booleanPreferencesKey("rate_us_done")
 
     val startCounter: Flow<Int> = dataStore.data
-        .mapNotNull { preferences ->
-            preferences[startCounterPref]
+        .map { preferences ->
+            preferences[startCounterPref] ?: 0
         }
 
     val onboardingShown = dataStore.data
         .map { preferences ->
-            preferences[onboardingShownPref] != null && preferences[onboardingShownPref] == true
+            preferences[onboardingShownPref] ?: false
         }
 
     val rateUsDone = dataStore.data
         .map { preferences ->
-            preferences[rateUsDonePref] != null && preferences[rateUsDonePref] == true
+            preferences[rateUsDonePref] ?: false
         }
 
     suspend fun setStartAppCounter(value: Int) {
