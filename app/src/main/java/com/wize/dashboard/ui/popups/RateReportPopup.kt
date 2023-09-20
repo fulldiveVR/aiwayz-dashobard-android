@@ -66,6 +66,12 @@ fun RateReportPopup(modifier: Modifier, onReportClicked: (report: String) -> Uni
                             style = WizeTypography.titleLarge
                         )
 
+                        Text(
+                            text = stringResource(R.string.disclaimer_report),
+                            modifier = modifier.padding(bottom = 20.dp),
+                            style = WizeTypography.bodyMedium
+                        )
+
                         TextField(
                             value = reportTextState,
                             onValueChange = { reportTextState = it },
