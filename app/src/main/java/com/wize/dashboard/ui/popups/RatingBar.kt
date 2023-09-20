@@ -27,7 +27,7 @@ fun RatingBar(
                 imageVector = if (i <= currentRating) Icons.Filled.Star
                 else Icons.Filled.StarOutline,
                 contentDescription = null,
-                tint = if (i <= currentRating) starsColor else WizeColor.Tertiary,
+                tint = if (i <= currentRating) starsColor else WizeColor.TextColorSecondary,
                 modifier = Modifier
                     .clickable { onRatingChanged(i) }
                     .padding(4.dp)

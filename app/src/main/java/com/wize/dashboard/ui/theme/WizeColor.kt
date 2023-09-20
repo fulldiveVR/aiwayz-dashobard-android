@@ -12,13 +12,14 @@ object WizeColor {
     val Accent = Color(0xFF705BE7)
 
     val Background = Color(0xFFFFFFFF)
+    val BackgroundSecondary = Color(0x26705BE7)
 
     val OnboardingBackground1 = Color(0xFFF2E4FF)
     val OnboardingBackground2 = Color(0xFFE0F7FF)
     val OnboardingBackground3 = Color(0xFFFFFFD3)
 
-    val TextColorPrimary = Color(0xFF0D1826)
-    val TextColorSecondary = Color(0xFF343a40)
+    val TextColorPrimary = Color(0xFF1D1B20)
+    val TextColorSecondary = Color(0xFF49454F)
 }
 
 

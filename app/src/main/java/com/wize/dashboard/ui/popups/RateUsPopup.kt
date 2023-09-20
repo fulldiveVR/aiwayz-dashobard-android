@@ -1,5 +1,6 @@
 package com.wize.dashboard.ui.popups
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,7 @@ fun RateUsPopup(
 
     val cancelButtonColor = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,
-        contentColor = WizeColor.Tertiary
+        contentColor = WizeColor.TextColorSecondary
     )
 
     val okButtonColor = ButtonDefaults.buttonColors(
@@ -58,38 +59,52 @@ fun RateUsPopup(
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.large
             ) {
-                Column(modifier = modifier.padding(16.dp)) {
-                    Text(
-                        text = stringResource(R.string.rate_popup_title),
-                        modifier.padding(top = 20.dp, bottom = 20.dp),
-                        style = WizeTypography.titleLarge
-                    )
-                    Text(
-                        text = stringResource(R.string.disclaimer_report),
-                        modifier = modifier.padding(bottom = 20.dp),
-                        style = WizeTypography.bodyMedium
-                    )
+                Column(modifier = modifier.background(WizeColor.BackgroundSecondary)) {
+                    Column(
+                        modifier = modifier
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.rate_popup_title),
+                            modifier.padding(top = 20.dp, bottom = 20.dp),
+                            style = WizeTypography.titleLarge
+                        )
+                        Text(
+                            text = stringResource(R.string.disclaimer_report),
+                            modifier = modifier.padding(bottom = 20.dp),
+                            style = WizeTypography.bodyMedium
+                        )
 
-                    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                        RatingBar(
-                            currentRating = currentRating,
-                            onRatingChanged = { currentRating = it })
-                    }
-
-                    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        TextButton(
-                            modifier = modifier.padding(top = 20.dp),
-                            onClick = { openDialog.value = false },
-                            colors = cancelButtonColor
-                        ) {
-                            Text(stringResource(R.string.button_not_now), style = WizeTypography.titleMedium)
+                        Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                            RatingBar(
+                                currentRating = currentRating,
+                                onRatingChanged = { currentRating = it })
                         }
-                        TextButton(
-                            modifier = modifier.padding(top = 20.dp),
-                            onClick = { onRateClicked.invoke(currentRating) },
-                            colors = okButtonColor
+
+                        Row(
+                            modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(stringResource(R.string.button_rate), style = WizeTypography.titleMedium)
+                            TextButton(
+                                modifier = modifier.padding(top = 20.dp),
+                                onClick = { openDialog.value = false },
+                                colors = cancelButtonColor
+                            ) {
+                                Text(
+                                    stringResource(R.string.button_not_now),
+                                    style = WizeTypography.titleMedium
+                                )
+                            }
+                            TextButton(
+                                modifier = modifier.padding(top = 20.dp),
+                                onClick = { onRateClicked.invoke(currentRating) },
+                                colors = okButtonColor
+                            ) {
+                                Text(
+                                    stringResource(R.string.button_rate),
+                                    style = WizeTypography.titleMedium
+                                )
+                            }
                         }
                     }
                 }

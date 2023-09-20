@@ -1,5 +1,6 @@
 package com.wize.dashboard.ui.popups
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +37,7 @@ fun RateReportPopup(modifier: Modifier, onReportClicked: (report: String) -> Uni
 
     val cancelButtonColor = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,
-        contentColor = WizeColor.Tertiary
+        contentColor = WizeColor.TextColorSecondary
     )
 
     val okButtonColor = ButtonDefaults.buttonColors(
@@ -58,47 +58,51 @@ fun RateReportPopup(modifier: Modifier, onReportClicked: (report: String) -> Uni
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.large
             ) {
-                Column(modifier = modifier.padding(16.dp)) {
-                    Text(
-                        modifier = modifier.padding(top = 16.dp, bottom = 16.dp),
-                        text = stringResource(R.string.rate_popup_title),
-                        style = WizeTypography.titleLarge
-                    )
-
-                    TextField(
-                        value = reportTextState,
-                        onValueChange = { reportTextState = it },
-                        shape = RoundedCornerShape(8.dp),
-                        colors = TextFieldDefaults.textFieldColors(
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = WizeColor.Tertiary,
-                            containerColor = WizeColor.Background
+                Column(modifier = modifier.background(WizeColor.BackgroundSecondary)) {
+                    Column(modifier = modifier.padding(16.dp)) {
+                        Text(
+                            modifier = modifier.padding(top = 16.dp, bottom = 16.dp),
+                            text = stringResource(R.string.rate_popup_title),
+                            style = WizeTypography.titleLarge
                         )
-                    )
 
-                    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        TextButton(
-                            modifier = modifier.padding(top = 20.dp),
-                            onClick = { openDialog.value = false },
-                            colors = cancelButtonColor
-                        ) {
-                            Text(
-                                stringResource(R.string.button_not_now),
-                                style = WizeTypography.titleMedium
+                        TextField(
+                            value = reportTextState,
+                            onValueChange = { reportTextState = it },
+                            colors = TextFieldDefaults.textFieldColors(
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = WizeColor.Tertiary,
+                                containerColor = Color.Transparent
                             )
-                        }
-                        TextButton(
-                            modifier = modifier.padding(top = 20.dp),
-                            onClick = {
-                                onReportClicked.invoke(reportTextState)
-                                openDialog.value = false
-                            },
-                            colors = okButtonColor
+                        )
+
+                        Row(
+                            modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                stringResource(R.string.button_report),
-                                style = WizeTypography.titleMedium
-                            )
+                            TextButton(
+                                modifier = modifier.padding(top = 20.dp),
+                                onClick = { openDialog.value = false },
+                                colors = cancelButtonColor
+                            ) {
+                                Text(
+                                    stringResource(R.string.button_not_now),
+                                    style = WizeTypography.titleMedium
+                                )
+                            }
+                            TextButton(
+                                modifier = modifier.padding(top = 20.dp),
+                                onClick = {
+                                    onReportClicked.invoke(reportTextState)
+                                    openDialog.value = false
+                                },
+                                colors = okButtonColor
+                            ) {
+                                Text(
+                                    stringResource(R.string.button_report),
+                                    style = WizeTypography.titleMedium
+                                )
+                            }
                         }
                     }
                 }
