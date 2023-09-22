@@ -17,7 +17,6 @@ import com.wize.dashboard.webview.DashboardWebView
 
 @Composable
 fun ContainerView(
-
     onboardingViewModel: OnboardingViewModel,
     popupsViewModel: PopupsViewModel,
     backCallback: (() -> Unit)

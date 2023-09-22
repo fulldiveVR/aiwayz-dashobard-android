@@ -10,6 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -20,17 +22,6 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class PopupsViewModel(private val settingsManager: SettingsManager) : ViewModel() {
-
-    val currentPopupFlow: MutableStateFlow<StartAppPopup> = MutableStateFlow(StartAppPopup.Empty)
-
-    val rateUsDoneFlow: StateFlow<Boolean> = settingsManager.rateUsDone
-        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
-
-    val rateUsReportFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
-    private val startCounterFlow: StateFlow<Int> = settingsManager.startCounter
-        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
-
 
     private val popupsFlow = listOf(
         StartAppPopup.Empty,
@@ -51,14 +42,23 @@ class PopupsViewModel(private val settingsManager: SettingsManager) : ViewModel(
         StartAppPopup.RateUs,
     )
 
-    private val client = OkHttpClient()
+    val currentPopupFlow: MutableStateFlow<StartAppPopup> = MutableStateFlow(StartAppPopup.Empty)
+
+    val rateUsDoneFlow: StateFlow<Boolean> = settingsManager.rateUsDone
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val rateUsReportFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     init {
-        currentPopupFlow.value = getShowingPopup(startCounterFlow.value)
         viewModelScope.launch {
-            settingsManager.setStartAppCounter(startCounterFlow.value + 1)
+            settingsManager.startCounter.mapNotNull { count ->
+                currentPopupFlow.value = getShowingPopup(count)
+                settingsManager.setStartAppCounter(count + 1)
+            }.first()
         }
     }
+
+    private val client = OkHttpClient()
 
     private fun getShowingPopup(startCounter: Int): StartAppPopup {
         return if (popupsFlow.lastIndex >= startCounter) {
