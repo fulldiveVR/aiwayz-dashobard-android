@@ -32,7 +32,8 @@ fun SolidButton(modifier: Modifier, text: String, onClick: () -> Unit) {
         content = {
             Text(
                 text = text,
-                style = WizeTypography.bodyMedium
+                style = WizeTypography.bodyMedium,
+                color = WizeColor.Background
             )
         }
     )

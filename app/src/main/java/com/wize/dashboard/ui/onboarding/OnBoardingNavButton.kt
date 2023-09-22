@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.wize.dashboard.R
 import com.wize.dashboard.ui.SolidButton
+import com.wize.dashboard.ui.theme.WizeTypography
 
 @Composable
 fun OnBoardingNavButton(
@@ -27,6 +28,6 @@ fun OnBoardingNavButton(
             stringResource(R.string.button_next)
         } else {
             stringResource(R.string.button_lets_go)
-        }
+        },
     )
 }
