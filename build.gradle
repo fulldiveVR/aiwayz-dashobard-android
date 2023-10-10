@@ -29,7 +29,7 @@ def genVersionName() {
 ext {
     versionMajor = 1
     versionMinor = 0
-    versionPatch = 5
+    versionPatch = 6
 
     MIN_SDK_VERSION = 24
     TARGET_SDK_VERSION = 34

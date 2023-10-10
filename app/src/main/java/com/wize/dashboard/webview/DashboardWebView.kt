@@ -14,16 +14,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.wize.dashboard.BuildConfig
+import com.wize.dashboard.extensions.ChromeExtension
+import com.wize.dashboard.extensions.ChromeExtension.Companion.JS_COPY_TEXT_TO_CLIPBOARD
+import com.wize.dashboard.extensions.ChromeExtension.Companion.JS_INJECTED_OBJECT
+import com.wize.dashboard.extensions.isBlobUrl
 import com.wize.dashboard.ui.ShimmerLayout
-import com.wize.dashboard.ui.WizeRefreshLayout
 import com.wize.dashboard.ui.SwipeState
+import com.wize.dashboard.ui.WizeRefreshLayout
 import com.wize.dashboard.viewmodel.DashboardViewModel
 
-//https://github.com/google/accompanist/issues/1442
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) {
 
+    val chromeExtension by remember { mutableStateOf(ChromeExtension()) }
     var webViewLayout by remember { mutableStateOf<WebView?>(null) }
 
     var isLoading by remember { mutableStateOf(true) }
@@ -59,6 +63,8 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                         } else {
                             super.onPageStarted(view, url, favicon)
                         }
+
+                        webView.evaluateJavascript(JS_COPY_TEXT_TO_CLIPBOARD, null)
                     }
 
                     override fun onReceivedHttpError(
@@ -83,13 +89,26 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                         isLoading = false
                     }
                 }
+
                 with(webView.settings) {
                     javaScriptEnabled = true
                     loadsImagesAutomatically = true
                     loadWithOverviewMode = true
                     useWideViewPort = true
-                    domStorageEnabled = true
                 }
+
+                chromeExtension.onCopyToClipboard = { text ->
+                    viewModel.copyToClipboard(text)
+                }
+
+                webView.addJavascriptInterface(chromeExtension, JS_INJECTED_OBJECT)
+
+                webView.setDownloadListener { url, _, _, mimetype, _ ->
+                    if (isBlobUrl(url)) {
+                        viewModel.fetchBlob(chromeExtension, webView, url, mimetype)
+                    }
+                }
+
                 webViewLayout = webView
             }
 

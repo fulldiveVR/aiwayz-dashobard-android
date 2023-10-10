@@ -32,7 +32,7 @@ fun ContainerView(
 
     if (onboardingShownUiState) {
         DashboardWebView(
-            DashboardViewModel()
+            DashboardViewModel(activity)
         ) {
             backCallback.invoke()
         }
