@@ -83,7 +83,7 @@ class ChromeExtension {
                 "            var reader = new FileReader();" +
                 "            reader.readAsDataURL(this.response);" +
                 "            reader.onloadend = function() {" +
-                "                $JS_INJECTED_OBJECT.getBlobData64(reader.result);" +
+                "                chrome_extension.getBlobData64(reader.result);" +
                 "            }" +
                 "        }" +
                 "    };" +

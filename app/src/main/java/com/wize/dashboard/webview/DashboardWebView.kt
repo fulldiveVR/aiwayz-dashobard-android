@@ -2,6 +2,7 @@ package com.wize.dashboard.webview
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.util.Log
 import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
@@ -18,6 +19,7 @@ import com.wize.dashboard.extensions.ChromeExtension
 import com.wize.dashboard.extensions.ChromeExtension.Companion.JS_COPY_TEXT_TO_CLIPBOARD
 import com.wize.dashboard.extensions.ChromeExtension.Companion.JS_INJECTED_OBJECT
 import com.wize.dashboard.extensions.isBlobUrl
+import com.wize.dashboard.extensions.isDataUrl
 import com.wize.dashboard.ui.ShimmerLayout
 import com.wize.dashboard.ui.SwipeState
 import com.wize.dashboard.ui.WizeRefreshLayout
@@ -104,8 +106,11 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                 webView.addJavascriptInterface(chromeExtension, JS_INJECTED_OBJECT)
 
                 webView.setDownloadListener { url, _, _, mimetype, _ ->
+                    Log.d("TestB", "setDownloadListener $url")
                     if (isBlobUrl(url)) {
                         viewModel.fetchBlob(chromeExtension, webView, url, mimetype)
+                    } else{ //if (isDataUrl(url)) {
+                        viewModel.saveData(url, mimetype)
                     }
                 }
 

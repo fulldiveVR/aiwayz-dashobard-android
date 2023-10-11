@@ -47,6 +47,10 @@ fun isBlobUrl(url: String): Boolean {
     return url.startsWith("blob:")
 }
 
+fun isDataUrl(url: String?): Boolean {
+    return null != url && url.startsWith("data:")
+}
+
 fun isPermissionsGranted(context: Context, permissions: Array<out String>): Boolean {
     return permissions.all { permission ->
         isPermissionGranted(context, permission)

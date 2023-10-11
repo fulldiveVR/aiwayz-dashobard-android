@@ -59,7 +59,7 @@ class DashboardViewModel(val activity: Activity) : ViewModel() {
         }
     }
 
-    private fun saveData(base64Data: String, mimeType: String) {
+     fun saveData(base64Data: String, mimeType: String) {
         val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (isPermissionsGranted(activity, permissions)) {
             val delimiterIndex = base64Data.indexOf(",")

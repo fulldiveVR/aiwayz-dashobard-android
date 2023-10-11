@@ -72,9 +72,9 @@ android {
             signingConfig signingConfigs.release
 
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
+            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwayz.com/?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwayz.com/logout?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwayz.com/\"'
         }
 
         debug {
@@ -84,9 +84,9 @@ android {
             signingConfig signingConfigs.debug
 
             buildConfigField 'String', 'REDIRECT_SCHEME', '\"wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwize.com/?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwize.com/logout?redirectUrl=wize://com.wize.dashobard\"'
-            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwize.com/\"'
+            buildConfigField 'String', 'REDIRECT_URL_AUTH', '\"https://auth.aiwayz.com/?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'REDIRECT_URL_LOGOUT', '\"https://auth.aiwayz.com/logout?redirectUrl=wize://com.wize.dashobard\"'
+            buildConfigField 'String', 'DASHBOARD_URL', '\"https://dashboard.aiwayz.com/\"'
         }
     }
 
