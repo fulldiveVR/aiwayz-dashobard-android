@@ -97,7 +97,6 @@ class DashboardViewModel(val activity: Activity) : ViewModel() {
         mimeType: String,
     ) {
         val filename = fetchFileName("", mimeType)
-        Log.d("TestB", "filename $filename")
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val file = File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -108,7 +107,6 @@ class DashboardViewModel(val activity: Activity) : ViewModel() {
                 out.flush()
             }
         } else {
-            Log.d("TestB", "writeToDownloads: $fileData")
             val contentResolver: ContentResolver = activity.contentResolver
             val contentValues = ContentValues().apply {
                 put(MediaStore.MediaColumns.DISPLAY_NAME, filename)

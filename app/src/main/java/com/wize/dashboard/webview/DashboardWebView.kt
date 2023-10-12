@@ -97,6 +97,7 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                     loadsImagesAutomatically = true
                     loadWithOverviewMode = true
                     useWideViewPort = true
+                    domStorageEnabled = true
                 }
 
                 chromeExtension.onCopyToClipboard = { text ->
@@ -106,7 +107,6 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                 webView.addJavascriptInterface(chromeExtension, JS_INJECTED_OBJECT)
 
                 webView.setDownloadListener { url, _, _, mimetype, _ ->
-                    Log.d("TestB", "setDownloadListener $url")
                     if (isBlobUrl(url)) {
                         viewModel.fetchBlob(chromeExtension, webView, url, mimetype)
                     } else if (isDataUrl(url)) {

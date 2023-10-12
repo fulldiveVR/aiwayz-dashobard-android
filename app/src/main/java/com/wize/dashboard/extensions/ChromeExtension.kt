@@ -61,7 +61,6 @@ class ChromeExtension {
 
     @JavascriptInterface
     fun getBlobData64(data: String) {
-        Log.d("TestB", "getBlobData64 $data")
         onBlobReceiver?.invoke(data)
     }
 
