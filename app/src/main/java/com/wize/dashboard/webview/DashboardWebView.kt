@@ -109,7 +109,7 @@ fun DashboardWebView(viewModel: DashboardViewModel, backCallback: (() -> Unit)) 
                     Log.d("TestB", "setDownloadListener $url")
                     if (isBlobUrl(url)) {
                         viewModel.fetchBlob(chromeExtension, webView, url, mimetype)
-                    } else{ //if (isDataUrl(url)) {
+                    } else if (isDataUrl(url)) {
                         viewModel.saveData(url, mimetype)
                     }
                 }

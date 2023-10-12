@@ -1,10 +1,12 @@
 package com.wize.dashboard.extensions
 
+import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.webkit.MimeTypeMap
 import androidx.annotation.ColorRes
 import androidx.compose.ui.text.font.Font
@@ -58,10 +60,14 @@ fun isPermissionsGranted(context: Context, permissions: Array<out String>): Bool
 }
 
 fun isPermissionGranted(context: Context, permission: String): Boolean {
-    return (ContextCompat.checkSelfPermission(
-        context,
-        permission
-    ) == PackageManager.PERMISSION_GRANTED)
+    return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2 && permission == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+        true
+    } else {
+        (ContextCompat.checkSelfPermission(
+            context,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED)
+    }
 }
 
 fun getDownloadManager(context: Context): DownloadManager {

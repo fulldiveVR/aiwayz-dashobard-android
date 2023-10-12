@@ -12,7 +12,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import android.webkit.MimeTypeMap
 import android.webkit.ValueCallback
 import android.webkit.WebView
 import androidx.core.app.ActivityCompat
@@ -20,11 +19,8 @@ import androidx.lifecycle.ViewModel
 import com.wize.dashboard.extensions.ChromeExtension
 import com.wize.dashboard.extensions.fetchFileName
 import com.wize.dashboard.extensions.isPermissionsGranted
-import com.wize.dashboard.extensions.letOr
 import java.io.File
 import java.io.FileOutputStream
-import java.util.Date
-import java.util.UUID
 
 class DashboardViewModel(val activity: Activity) : ViewModel() {
 
@@ -59,7 +55,7 @@ class DashboardViewModel(val activity: Activity) : ViewModel() {
         }
     }
 
-     fun saveData(base64Data: String, mimeType: String) {
+    fun saveData(base64Data: String, mimeType: String) {
         val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (isPermissionsGranted(activity, permissions)) {
             val delimiterIndex = base64Data.indexOf(",")
